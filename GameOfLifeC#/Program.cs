@@ -1,4 +1,7 @@
-﻿string input = LoadInput();
+﻿using System.Diagnostics;
+using System.Text;
+
+string input = LoadInput();
 bool[][] mainGeneration = ParseInput(input);
 int boundRow = mainGeneration.Length;
 int boundCol = mainGeneration[0].Length;
@@ -12,6 +15,7 @@ ParallelOptions options = new()
 
 Console.Clear();
 (var left, var top) = Console.GetCursorPosition();
+
 while (true)
 {
     RenderGeneration();
@@ -77,16 +81,19 @@ bool[][] ParseInput(string input)
 
 void RenderGeneration()
 {
+    StringBuilder sb = new();
+
     for (int i = 0; i < mainGeneration.Length; i++)
     {
         for (int z = 0; z < mainGeneration[i].Length; z++)
         {
-            Console.Write(mainGeneration[i][z] ? $"\u001b[38;2;{50};{255};{16}m█" : $"\u001b[38;2;{00};{00};{00}m█");
+            sb.Append(mainGeneration[i][z] ? $"\u001b[38;2;{50};{255};{16}m█" : $"\u001b[38;2;{00};{00};{00}m█");
         }
 
-        Console.WriteLine();
+        sb.AppendLine();
     }
 
+    Console.Write(sb.ToString());
     Console.WriteLine($"Generation: {gen}");
 }
 
@@ -109,6 +116,8 @@ bool[][] CopyGrid(bool[][] source)
 
 void CalculateState()
 {
+    Stopwatch watch = new();
+    watch.Start();
     bool[][] tempStateGrid = CopyGrid(mainGeneration);
 
     Parallel.For(0, tempStateGrid.Length, options, (row) =>
@@ -121,6 +130,8 @@ void CalculateState()
                 mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
         }
     });
+    watch.Stop();
+    Console.WriteLine(watch.ElapsedMilliseconds);
 }
 
 int CountNeighbors(int row, int col, bool[][] tempStateGrid)
