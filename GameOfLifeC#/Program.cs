@@ -86,6 +86,7 @@ void RenderGeneration()
 
         Console.WriteLine();
     }
+
     Console.WriteLine($"Generation: {gen}");
 }
 
