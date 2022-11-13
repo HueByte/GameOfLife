@@ -1,75 +1,53 @@
-﻿// string input =
-// @"
-//     x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-//     - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-// ";
-
-string input =
-@"
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - x x - x x - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - x - x - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - x - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-    - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - x x - - - - - - - - - - - - - - - -
-";
-
-// string input =
-// @"
-// - x -
-// - - x
-// x x x
-// - - -
-// ";
-
+﻿string input = LoadInput();
 bool[][] mainGeneration = ParseInput(input);
 int boundRow = mainGeneration.Length;
 int boundCol = mainGeneration[0].Length;
+object locker = new();
+ulong gen = 0;
+
+ParallelOptions options = new()
+{
+    MaxDegreeOfParallelism = Environment.ProcessorCount
+};
 
 Console.Clear();
+(var left, var top) = Console.GetCursorPosition();
 while (true)
 {
     RenderGeneration();
     CalculateState();
-    Thread.Sleep(300);
 
-    Console.Clear();
+    // delay between generations
+    Thread.Sleep(100);
+
+    // no console clear to make the movement smoother
+    Console.SetCursorPosition(left, top);
+    gen++;
+}
+
+string LoadInput()
+{
+    var PATH = AppContext.BaseDirectory + "Inputs";
+
+    // Get txt files
+    var files = Directory.GetFiles(Path.Join(PATH), "*.txt");
+
+    // Display input files to user
+    Console.WriteLine("Select your input file from /Inputs folder: ");
+    for (int i = 0; i < files.Length; i++)
+        Console.WriteLine($"{i} - {files[i]}");
+
+    // Get user input
+    int result = -1;
+    while (true)
+    {
+        Console.Write("Your choice: ");
+
+        var userInput = int.TryParse(Console.ReadLine(), out result);
+        if (userInput && !(result >= files.Length) && !(result < 0)) break;
+    }
+
+    return File.ReadAllText(files[result]);
 }
 
 bool[][] ParseInput(string input)
@@ -108,6 +86,7 @@ void RenderGeneration()
 
         Console.WriteLine();
     }
+    Console.WriteLine($"Generation: {gen}");
 }
 
 bool[][] CopyGrid(bool[][] source)
@@ -131,17 +110,16 @@ void CalculateState()
 {
     bool[][] tempStateGrid = CopyGrid(mainGeneration);
 
-    for (int row = 0; row < tempStateGrid.Length; row++)
+    Parallel.For(0, tempStateGrid.Length, options, (row) =>
     {
         for (int col = 0; col < tempStateGrid[row].Length; col++)
         {
             int aliveNeighbors = CountNeighbors(row, col, tempStateGrid);
 
-            // Console.WriteLine($"State [{row}] [{col}] -> {aliveNeighbors} {(aliveNeighbors == 3 ? "✅" : "")}");
-
-            mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
+            lock (locker)
+                mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
         }
-    }
+    });
 }
 
 int CountNeighbors(int row, int col, bool[][] tempStateGrid)
