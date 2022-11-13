@@ -1,8 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
-string input = LoadInput();
-bool[][] mainGeneration = ParseInput(input);
+bool[][] mainGeneration = LoadInput();
 int boundRow = mainGeneration.Length;
 int boundCol = mainGeneration[0].Length;
 object locker = new();
@@ -29,7 +28,30 @@ while (true)
     gen++;
 }
 
-string LoadInput()
+bool[][] RandomSeed()
+{
+    int boardSizeHeight = 128;
+    int boardSizeWidth = 256;
+    Random rnd = new();
+
+    bool[][] board = new bool[boardSizeHeight][];
+
+    for (int r = 0; r < board.Length; r++)
+    {
+        var col = new bool[boardSizeWidth];
+        for (int c = 0; c < col.Length; c++)
+        {
+            // 70% for alive cell
+            col[c] = rnd.Next(0, 100) <= 70;
+        }
+
+        board[r] = col;
+    }
+
+    return board;
+}
+
+bool[][] LoadInput()
 {
     var PATH = AppContext.BaseDirectory + "Inputs";
 
@@ -41,6 +63,8 @@ string LoadInput()
     for (int i = 0; i < files.Length; i++)
         Console.WriteLine($"{i} - {files[i]}");
 
+    Console.WriteLine($"{files.Length} - Random 128x256 (Console zoomout recommended)");
+
     // Get user input
     int result = -1;
     while (true)
@@ -48,10 +72,11 @@ string LoadInput()
         Console.Write("Your choice: ");
 
         var userInput = int.TryParse(Console.ReadLine(), out result);
-        if (userInput && !(result >= files.Length) && !(result < 0)) break;
+        if (userInput && !(result > files.Length) && !(result < 0) || result == files.Length) break;
     }
 
-    return File.ReadAllText(files[result]);
+    if (result == files.Length) return RandomSeed();
+    return ParseInput(File.ReadAllText(files[result]));
 }
 
 bool[][] ParseInput(string input)
@@ -130,8 +155,9 @@ void CalculateState()
                 mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
         }
     });
+
     watch.Stop();
-    Console.WriteLine(watch.ElapsedMilliseconds);
+    Console.WriteLine($"{watch.ElapsedMilliseconds} ms");
 }
 
 int CountNeighbors(int row, int col, bool[][] tempStateGrid)
