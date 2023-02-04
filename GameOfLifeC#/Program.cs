@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
+bool performanceMode = false;
+int delay = 50;
 bool[][] mainGeneration = LoadInput();
 int boundRow = mainGeneration.Length;
 int boundCol = mainGeneration[0].Length;
@@ -21,7 +23,7 @@ while (true)
     CalculateState();
 
     // delay between generations
-    Thread.Sleep(100);
+    Thread.Sleep(delay);
 
     // no console clear to make the movement smoother
     Console.SetCursorPosition(left, top);
@@ -57,6 +59,14 @@ bool[][] LoadInput()
 
     // Get txt files
     var files = Directory.GetFiles(Path.Join(PATH), "*.txt");
+
+    Console.WriteLine("Should use performance mode? (1 - yes, Other input - no)");
+    if (Console.ReadLine() == "1")
+    {
+        performanceMode = true;
+        delay = 10;
+        Console.WriteLine($"Performance mode {performanceMode}");
+    }
 
     // Display input files to user
     Console.WriteLine("Select your input file from /Inputs folder: ");
@@ -112,7 +122,8 @@ void RenderGeneration()
     {
         for (int z = 0; z < mainGeneration[i].Length; z++)
         {
-            sb.Append(mainGeneration[i][z] ? $"\u001b[38;2;{50};{255};{16}m█" : $"\u001b[38;2;{00};{00};{00}m█");
+            if (performanceMode) sb.Append(mainGeneration[i][z] ? "x" : "·");
+            else sb.Append(mainGeneration[i][z] ? $"\u001b[38;2;{50};{255};{16}m█" : $"\u001b[38;2;{00};{00};{00}m█");
         }
 
         sb.AppendLine();
@@ -151,8 +162,7 @@ void CalculateState()
         {
             int aliveNeighbors = CountNeighbors(row, col, tempStateGrid);
 
-            lock (locker)
-                mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
+            mainGeneration[row][col] = DetermineState(aliveNeighbors, mainGeneration[row][col]);
         }
     });
 
