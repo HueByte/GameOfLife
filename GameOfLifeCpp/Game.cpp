@@ -73,7 +73,7 @@ void printBoard(const std::vector<std::vector<bool>> &board)
             }
             else
             {
-                output.append(".");
+                output.append("·");
             }
         }
 
