@@ -4,8 +4,8 @@
 #include <string>
 #include <thread>
 
-const int HEIGHT = 200;
-const int WIDTH = 400;
+const int HEIGHT = 48;
+const int WIDTH = 128;
 
 int countAliveNeighbors(const std::vector<std::vector<bool>> &board, int row, int col)
 {
@@ -83,21 +83,41 @@ void printBoard(const std::vector<std::vector<bool>> &board)
     std::cout << output;
 }
 
+void seed(std::vector<std::vector<bool>> &board)
+{
+    for (int i = 0; i < HEIGHT; i++)
+    {
+        for (int j = 0; j < WIDTH; j++)
+        {
+            board[i][j] = rand() % 2;
+        }
+    }
+}
+
 int main()
 {
+    int genTime = 0;
+    std::cout << "Enter the time between generations in milliseconds:" << std::endl;
+    std::cin >> genTime;
     std::vector<std::vector<bool>> board(HEIGHT, std::vector<bool>(WIDTH, false));
-    // seed the board with alive cells
-    board[10][20] = true;
-    board[11][19] = true;
-    board[11][20] = true;
-    board[11][21] = true;
-    board[12][20] = true;
+    // // seed the board with alive cells
+    // board[10][20] = true;
+    // board[11][19] = true;
+    // board[11][20] = true;
+    // board[11][21] = true;
+    // board[12][20] = true;
+    // board[13][20] = true;
+    // board[14][20] = true;
+    // board[14][21] = true;
+    // board[14][22] = true;
+
+    seed(board);
 
     while (true)
     {
         printBoard(board);
         updateBoard(board);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        std::this_thread::sleep_for(std::chrono::milliseconds(genTime));
     }
 
     return 0;
